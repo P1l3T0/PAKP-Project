@@ -10,4 +10,8 @@
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.8" />
 		<PackageReference Include="Scalar.AspNetCore" Version="2.10.3" />
 	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\PAKPProjectData\PAKPProjectData.csproj" />
+		<ProjectReference Include="..\PAKPProjectServices\PAKPProjectServices.csproj" />
+	</ItemGroup>
 </Project>
