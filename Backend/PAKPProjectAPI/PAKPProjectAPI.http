@@ -1,0 +1,6 @@
+@PAKPProjectAPI_HostAddress = http://localhost:5110
+
+GET {{PAKPProjectAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
