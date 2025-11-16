@@ -18,5 +18,6 @@ namespace PAKPProjectServices
         bool ValidateEmailAndPassword(string email, string password);
         (byte[] hashedPassword, byte[] saltPassword) HashPassword(RegisterDTO registerDto);
         bool CheckPassword(User currentUser, LoginDTO loginDto);
+        Task<List<CurrentUserDTO>> SearchUsersAsync(string searchTerm);
     }
 }

@@ -107,5 +107,22 @@ namespace PAKPProjectServices
 
             return true;
         }
+
+        // Safe search method using EF LINQ (parameterized queries)
+        public async Task<List<CurrentUserDTO>> SearchUsersAsync(string searchTerm)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                return new List<CurrentUserDTO>();
+            }
+
+            // Safe: EF automatically parameterizes these queries
+            var users = await _dataContext.Users
+                .Where(u => u.Username.Contains(searchTerm) || u.Email.Contains(searchTerm))
+                .OrderBy(u => u.Username)
+                .ToListAsync();
+
+            return users.Select(u => u.ToDto<CurrentUserDTO>()).ToList();
+        }
     }
 }
