@@ -16,6 +16,7 @@ namespace PAKPProjectServices
         public async Task DeleteCurrentUserAsync()
         {
             int currentUserID = await _userService.GetCurrentUserID();
+            await _userService.DeleteUserAsync(currentUserID);
         }
     }
 }

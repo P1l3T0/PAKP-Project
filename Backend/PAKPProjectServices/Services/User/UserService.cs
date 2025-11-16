@@ -22,7 +22,7 @@ namespace PAKPProjectServices
             return user;
         }
 
-        public async Task<CurrentUserDTO> GetUserByEmailAsync(string email) => (await _dataContext.Users.FirstOrDefaultAsync(u => u.Email == email))!.ToDto<CurrentUserDTO>() ?? throw new Exception("Invalid Email");
+        public async Task<User> GetUserByEmailAsync(string email) => await _dataContext.Users.FirstOrDefaultAsync(u => u.Email == email) ?? throw new Exception("Invalid Email");
 
         public async Task<CurrentUserDTO> GetUserByUsernameAsync(string username) => (await _dataContext.Users.FirstOrDefaultAsync(u => u.Username == username))!.ToDto<CurrentUserDTO>() ?? throw new Exception("Invalid Username");
 
@@ -98,7 +98,7 @@ namespace PAKPProjectServices
             return (hashedPassword, saltPassword);
         }
 
-        public bool CheckPassword(CurrentUserDTO user, LoginDTO loginDto)
+        public bool CheckPassword(User user, LoginDTO loginDto)
         {
             using HMACSHA512 hmac = new HMACSHA512(user.PasswordSalt);
             byte[] computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));

@@ -26,13 +26,13 @@ namespace PAKPProjectServices
 
         public async Task<CurrentUserDTO> LoginAsync(LoginDTO loginDto)
         {
-            if (!await _userService.UserExistsAsync(loginDto.Email)) throw new Exception("User does not exist");
+            if (!await _userService.UserExistsAsync(loginDto.Email)) throw new Exception("Invalid Username or Password");
 
-            CurrentUserDTO currentUser = await _userService.GetUserByEmailAsync(loginDto.Email);
+            User currentUser = await _userService.GetUserByEmailAsync(loginDto.Email);
 
-            if (!_userService.CheckPassword(currentUser, loginDto)) throw new Exception("Invalid Password");
+            if (!_userService.CheckPassword(currentUser, loginDto)) throw new Exception("Invalid Username or Password");
 
-            return currentUser;
+            return currentUser.ToDto<CurrentUserDTO>();
         }
 
         public async Task GenerateAuthResponse(CurrentUserDTO currentUser)
