@@ -1,14 +1,1 @@
-<form [formGroup]="loginForm" (ngSubmit)="login()">
-  <div class="container">
-    <label for="uname"><b>Email</b></label>
-    <input type="text" placeholder="Enter email" formControlName="email" required>
-
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" formControlName="password" required>
-
-    <button type="submit">{{ useVulnerableLogin ? 'Login (Vulnerable)' : 'Login (Safe)' }}</button>
-    <button type="button" (click)="toggleLoginMethod()" style="margin-left: 10px;">
-      Toggle to {{ useVulnerableLogin ? 'Safe' : 'Vulnerable' }} Login
-    </button>
-  </div>
-</form>
+<router-outlet></router-outlet>

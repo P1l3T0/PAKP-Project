@@ -1,0 +1,23 @@
+<form class="k-d-flex k-flex-col k-gap-3.5 k-form k-form-md" [formGroup]="loginForm" (ngSubmit)="login()">
+    <kendo-formfield>
+        <kendo-label labelCssClass="k-form-label" [for]="email" text="Email"></kendo-label>
+        <kendo-textbox size="large" formControlName="email" #email></kendo-textbox>
+    </kendo-formfield>
+    <kendo-formfield>
+        <kendo-label labelCssClass="k-form-label" [for]="password" text="Password"></kendo-label>
+        <kendo-textbox type="password" size="large" formControlName="password" #password></kendo-textbox>
+    </kendo-formfield>
+    <!-- Switch moved outside the form below -->
+    <div class="k-form-buttons">
+        <div class="k-d-flex k-flex-col k-flex-grow k-gap-7">
+            <button type="submit" class="k-w-full" kendoButton size="large" themeColor="primary" type="submit">
+                {{ useVulnerableLogin ? 'Login (Vulnerable)' : 'Login (Safe)' }}
+            </button>
+        </div>
+    </div>
+</form>
+<div class="k-d-flex k-align-items-center k-mt-3">
+    <kendo-label labelCssClass="k-form-label k-mb-0" text="Use Vulnerable Login"></kendo-label>
+    <kendo-switch [(ngModel)]="useVulnerableLogin" name="vulnSwitch" onLabel="Vulnerable" offLabel="Safe"
+        style="margin-left: 12px; width: 105px;"></kendo-switch>
+</div>

@@ -1,0 +1,21 @@
+<form class="k-d-flex k-flex-col k-gap-3.5 k-form k-form-md" [formGroup]="signUpForm" (ngSubmit)="signup()">
+    <kendo-formfield>
+        <kendo-label labelCssClass="k-form-label" [for]="email" text="Email"></kendo-label>
+        <kendo-textbox size="large" formControlName="email" #email></kendo-textbox>
+    </kendo-formfield>
+    <kendo-formfield>
+        <kendo-label labelCssClass="k-form-label" [for]="username" text="Username"></kendo-label>
+        <kendo-textbox size="large" formControlName="username" #username></kendo-textbox>
+    </kendo-formfield>
+    <kendo-formfield>
+        <kendo-label labelCssClass="k-form-label" [for]="password" text="Password"></kendo-label>
+        <kendo-textbox type="password" size="large" formControlName="password" #password></kendo-textbox>
+    </kendo-formfield>
+    <div class="k-form-buttons">
+        <div class="k-d-flex k-flex-col k-flex-grow k-gap-7">
+            <button type="submit" class="k-w-full" kendoButton size="large" themeColor="primary" type="submit">
+                Register
+            </button>
+        </div>
+    </div>
+</form>

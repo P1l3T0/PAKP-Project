@@ -1,0 +1,21 @@
+<section class="k-d-flex">
+    <div class="k-d-none k-d-md-flex k-flex-1 k-align-items-center k-justify-content-center k-h-full" [ngStyle]="{
+                    'minHeight': '100vh',
+                    'background': 'linear-gradient(266deg, color-mix(in srgb, var(--kendo-color-series-e-subtler) 8%, transparent) 18.06%, color-mix(in srgb, var(--kendo-color-app-surface) 4%, transparent) 34.58%),linear-gradient(215deg, color-mix(in srgb, var(--kendo-color-app-surface) 4%, transparent) 26.58%, color-mix(in srgb, var(--kendo-color-series-d-subtler) 8%, transparent) 76.24%, color-mix(in srgb, var(--kendo-color-app-surface) 0%, transparent) 124.43%),linear-gradient(107deg, color-mix(in srgb, var(--kendo-color-app-surface) 4%, transparent) 28.34%, color-mix(in srgb, var(--kendo-color-primary) 8%, transparent) 57.43%, color-mix(in srgb, var(--kendo-color-primary) 8%, transparent) 71.97%,  color-mix(in srgb, var(--kendo-color-app-surface) 4%, transparent) 101.06%), var(--kendo-color-app-surface)'
+                }">
+        <div class="k-d-flex k-flex-col k-gap-6 k-p-10 k-box-sizing-border k-w-full" [ngStyle]="{ maxWidth: '458px' }">
+            <kendo-tabstrip #tabstrip (tabSelect)="onTabSelect($event)">
+                <kendo-tabstrip-tab title="Log in" [selected]="true">
+                    <ng-template kendoTabContent>
+                        <router-outlet></router-outlet>
+                    </ng-template>
+                </kendo-tabstrip-tab>
+                <kendo-tabstrip-tab title="Register">
+                    <ng-template kendoTabContent>
+                        <router-outlet></router-outlet>
+                    </ng-template>
+                </kendo-tabstrip-tab>
+            </kendo-tabstrip>
+        </div>
+    </div>
+</section>
