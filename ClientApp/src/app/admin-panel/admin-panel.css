@@ -78,14 +78,3 @@
 .k-grid-table tr:hover td {
   background: #2d333b !important;
 }
-
-button[kendoButton] {
-  font-weight: 600;
-  padding: 10px 18px !important;
-  border-radius: 10px !important;
-  transition: transform 0.15s ease;
-}
-
-button[kendoButton]:hover {
-  transform: translateY(-2px);
-}

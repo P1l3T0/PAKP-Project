@@ -5,3 +5,14 @@ body.k-body {
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   background: linear-gradient(266deg, color-mix(in srgb, var(--kendo-color-series-e-subtler) 8%, transparent) 18.06%, color-mix(in srgb, var(--kendo-color-app-surface) 4%, transparent) 34.58%),linear-gradient(215deg, color-mix(in srgb, var(--kendo-color-app-surface) 4%, transparent) 26.58%, color-mix(in srgb, var(--kendo-color-series-d-subtler) 8%, transparent) 76.24%, color-mix(in srgb, var(--kendo-color-app-surface) 0%, transparent) 124.43%),linear-gradient(107deg, color-mix(in srgb, var(--kendo-color-app-surface) 4%, transparent) 28.34%, color-mix(in srgb, var(--kendo-color-primary) 8%, transparent) 57.43%, color-mix(in srgb, var(--kendo-color-primary) 8%, transparent) 71.97%,  color-mix(in srgb, var(--kendo-color-app-surface) 4%, transparent) 101.06%), var(--kendo-color-app-surface);
 }
+
+button[kendoButton] {
+  font-weight: 600;
+  padding: 10px 18px !important;
+  border-radius: 10px !important;
+  transition: transform 0.15s ease;
+}
+
+button[kendoButton]:hover {
+  transform: translateY(-2px);
+}
