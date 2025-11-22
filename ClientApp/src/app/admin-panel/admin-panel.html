@@ -1,0 +1,47 @@
+<div class="admin-page">
+    <app-header pageTitle="Admin Panel"></app-header>
+    
+    <div class="admin-container">
+        <div class="admin-title-block">
+            <h2>SQL Injection Security Demo</h2>
+            <p class="admin-topic">Explore how insecure database queries can lead to data leaks and system compromise.
+            </p>
+            <button kendoButton themeColor="success" [svgIcon]="securitySVG" (click)="forumNavigate()">Go to Forum for XSS Security demo</button>
+        </div>
+
+        <div class="forum-card">
+            <div class="toggle-mode">
+                <kendo-label [for]="vulnSwitch" class="k-display-block" text="Vulnerable Mode"></kendo-label>
+                <kendo-switch #vulnSwitch name="vulnSwitch" [(ngModel)]="vulnerableMode" onLabel="Vulnerable"
+                    offLabel="Safe" style="width: 105px;">
+                </kendo-switch>
+                <span class="mode-label" [ngStyle]="{'color': vulnerableMode ? 'red' : '#e6edf3' }">
+                    {{ vulnerableMode ? 'SQL Injection Vulnerable' : 'SQL Injection Safe' }}
+                </span>
+            </div>
+        </div>
+
+        <div class="admin-controls forum-card">
+            <div class="admin-search">
+                <kendo-formfield>
+                    <kendo-label text="Search Users">
+                        <kendo-textbox [(ngModel)]="searchQuery" (input)="onSearchChange()"
+                            placeholder="Search by username or email..." size="large">
+                        </kendo-textbox>
+                    </kendo-label>
+                </kendo-formfield>
+            </div>
+        </div>
+
+        <div class="grid-wrapper forum-card">
+            <h3 class="grid-title">User Search Results</h3>
+
+            <kendo-grid [kendoGridBinding]="users">
+                <kendo-grid-column field="id" title="ID" [width]="90"></kendo-grid-column>
+                <kendo-grid-column field="username" title="Username"></kendo-grid-column>
+                <kendo-grid-column field="email" title="Email"></kendo-grid-column>
+            </kendo-grid>
+        </div>
+
+    </div>
+</div>

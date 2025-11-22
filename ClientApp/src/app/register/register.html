@@ -1,0 +1,63 @@
+<form class="k-d-flex k-flex-col k-gap-3.5 k-form k-form-md" [formGroup]="registerForm" (ngSubmit)="signup()">
+    <kendo-formfield>
+        <kendo-label labelCssClass="k-form-label" [for]="email" text="Email"></kendo-label>
+        <kendo-textbox size="large" formControlName="email" #email></kendo-textbox>
+        @if(registerForm.controls['email'].errors?.['required']){
+            <kendo-formerror>
+                Email address is required
+            </kendo-formerror>
+        }
+        @else if(registerForm.controls['email'].errors?.['email']){
+            <kendo-formerror>
+                Please enter a valid email address
+            </kendo-formerror>
+        }
+    </kendo-formfield>
+    <kendo-formfield>
+        <kendo-label labelCssClass="k-form-label" [for]="username" text="Username"></kendo-label>
+        <kendo-textbox size="large" formControlName="username" #username></kendo-textbox>
+        @if(registerForm.controls['username'].errors?.['required']){
+            <kendo-formerror>
+                Username is required
+            </kendo-formerror>
+        }
+    </kendo-formfield>
+    <kendo-formfield>
+        <kendo-label labelCssClass="k-form-label" [for]="password" text="Password"></kendo-label>
+        <kendo-textbox type="password" size="large" formControlName="password" #password></kendo-textbox>
+        @if(registerForm.controls['password'].errors?.['required']){
+            <kendo-formerror>
+                Password is required
+            </kendo-formerror>
+        }
+        @else if(registerForm.controls['password'].errors?.['pattern'] || registerForm.controls['password'].errors?.['minlength']){
+            <kendo-formerror>
+                Password must be at least 10 characters long and include uppercase, lowercase, number, and special character (@$!%*?&).
+            </kendo-formerror>
+        }
+    </kendo-formfield>
+    <div class="k-form-buttons">
+        <div class="k-d-flex k-flex-col k-flex-grow k-gap-7">
+            <button type="submit" class="k-w-full" kendoButton size="large" themeColor="primary">
+                Register
+            </button>
+        </div>
+    </div>
+</form>
+
+@if(showDialog){
+<kendo-dialog [width]="400" (close)="onDialogClose()">
+  <kendo-dialog-titlebar>
+    {{ dialogSuccess ? 'Success' : 'Error' }}
+  </kendo-dialog-titlebar>
+  <p>{{ dialogMessage }}</p>
+  <kendo-dialog-actions>
+    @if(!dialogSuccess){
+        <button kendoButton themeColor="primary" (click)="onDialogClose()">Try Again</button>
+    }
+    @else if(dialogSuccess){
+        <button kendoButton themeColor="primary" (click)="goToLogin()">Login</button>
+    }
+  </kendo-dialog-actions>
+</kendo-dialog>
+}

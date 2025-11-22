@@ -1,0 +1,149 @@
+.forum-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.forum-main {
+  display: flex;
+  justify-content: center;
+  padding: 48px 20px;
+}
+
+.forum-panel {
+  width: 100%;
+  max-width: 850px;
+}
+
+.forum-title-block {
+  margin-bottom: 24px;
+}
+
+.forum-title-block h2 {
+  margin: 0;
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.forum-topic {
+  color: #9ca3af;
+  margin-top: 6px;
+  font-size: 1.1rem;
+}
+
+.forum-card {
+  background: rgba(34, 39, 46, 0.9);
+  backdrop-filter: blur(14px);
+  padding: 26px 28px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  margin-bottom: 28px;
+  transition: background 0.2s ease;
+}
+
+.forum-card:hover {
+  background: rgba(45, 51, 59, 0.92);
+}
+
+.toggle-card {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-mode {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.toggle-mode label {
+  font-weight: 600;
+}
+
+.mode-indicator {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.second-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.comment-form .k-button {
+    align-self: flex-start;
+}
+
+.comments-section h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.comments-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.comment {
+  display: flex;
+  gap: 18px;
+  padding: 18px 22px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(40, 46, 54, 0.92);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.comment:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.28);
+}
+
+.comment-avatar {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, rgb(234, 90, 81), #6f42c1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(3, 102, 214, 0.35);
+}
+
+.comment-meta {
+  color: #9ca3af;
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.comment-text {
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.hint-block {
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+.hint-block ul {
+  list-style: none;
+  padding-left: 20px;
+  font-style: italic;
+}

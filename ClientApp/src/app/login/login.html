@@ -1,0 +1,45 @@
+<form class="k-d-flex k-flex-col k-gap-3.5 k-form k-form-md" [formGroup]="loginForm" (ngSubmit)="login()">
+    <kendo-formfield>
+        <kendo-label labelCssClass="k-form-label" [for]="email" text="Email"></kendo-label>
+        <kendo-textbox size="large" formControlName="email" #email></kendo-textbox>
+        @if(loginForm.controls['email'].errors?.['required']){
+            <kendo-formerror>
+                Please enter your email address
+            </kendo-formerror>
+        }
+    </kendo-formfield>
+    <kendo-formfield>
+        <kendo-label labelCssClass="k-form-label" [for]="password" text="Password"></kendo-label>
+        <kendo-textbox type="password" size="large" formControlName="password" #password></kendo-textbox>
+        @if(loginForm.controls['password'].errors?.['required']){
+            <kendo-formerror>
+                Please enter your password
+            </kendo-formerror>
+        }
+    </kendo-formfield>
+    <div class="k-form-buttons">
+        <div class="k-d-flex k-flex-col k-flex-grow k-gap-7">
+            <button type="submit" class="k-w-full" kendoButton size="large" themeColor="primary" type="submit">
+                {{ useVulnerableLogin ? 'Log in (Vulnerable)' : 'Log in (Safe)' }}
+            </button>
+        </div>
+    </div>
+</form>
+<div class="k-d-flex k-align-items-center k-mt-3">
+    <kendo-label labelCssClass="k-form-label k-mb-0" text="Use Vulnerable Login"></kendo-label>
+    <kendo-switch [(ngModel)]="useVulnerableLogin" name="vulnSwitch" onLabel="Vulnerable" offLabel="Safe"
+        style="margin-left: 12px; width: 105px;"></kendo-switch>
+</div>
+
+
+@if(showDialog){
+<kendo-dialog [width]="400" (close)="onDialogClose()">
+  <kendo-dialog-titlebar>
+    {{ dialogTitle }}
+  </kendo-dialog-titlebar>
+  <p>{{ dialogMessage }}</p>
+  <kendo-dialog-actions>
+    <button kendoButton themeColor="primary" (click)="onDialogClose()">Try Again</button>
+  </kendo-dialog-actions>
+</kendo-dialog>
+}
