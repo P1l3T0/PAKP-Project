@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { User } from '../models/user';
 import { securityLockOutlineIcon, SVGIcon } from '@progress/kendo-svg-icons';
-import { Header } from "../header/header";
 
 @Component({
   selector: 'app-admin-panel',
@@ -21,8 +20,7 @@ import { Header } from "../header/header";
     KENDO_LABELS,
     KENDO_INPUTS,
     KENDO_BUTTONS,
-    Header
-],
+  ],
   templateUrl: './admin-panel.html',
   styleUrls: ['./admin-panel.css'],
 })
@@ -60,6 +58,6 @@ export class AdminPanel implements OnInit {
   }
 
   public forumNavigate(): void {
-    this.router.navigate(['/forum']); 
+    this.router.navigate(['/forum']);
   }
 }

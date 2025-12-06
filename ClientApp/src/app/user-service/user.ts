@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../@backend/services/http.service';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
-import { Router } from '@angular/router';
 import { User } from '../models/user';
 import { FetchUsersResponse } from '../models/fetch-users-response';
 import { ApiResponse } from '../models/api-response';
@@ -12,7 +11,7 @@ import { ApiResponse } from '../models/api-response';
 export class UserService {
   public isLoggedInSubject = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpService, private router: Router) {}
+  constructor(private http: HttpService) {}
 
   public async checkAuth(): Promise<boolean> {
     try {

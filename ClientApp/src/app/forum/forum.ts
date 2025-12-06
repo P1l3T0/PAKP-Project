@@ -1,20 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
 import { KENDO_BUTTONS } from '@progress/kendo-angular-buttons';
 import { KENDO_INPUTS } from '@progress/kendo-angular-inputs';
 import { KENDO_LABELS } from '@progress/kendo-angular-label';
-import { UserService } from '../user-service/user';
 import { Router } from '@angular/router';
 import { SafeHtmlPipe } from "../safehtml-pipe";
 import { dataSqlIcon, SVGIcon } from '@progress/kendo-svg-icons';
-import { Header } from '../header/header';
 
 @Component({
   selector: 'app-forum',
@@ -25,9 +22,8 @@ import { Header } from '../header/header';
     KENDO_LABELS,
     KENDO_INPUTS,
     KENDO_BUTTONS,
-    SafeHtmlPipe,
-    Header
-],
+    SafeHtmlPipe
+  ],
   templateUrl: './forum.html',
   styleUrl: './forum.css',
 })
@@ -41,7 +37,6 @@ export class Forum {
   public dataSqlIcon: SVGIcon = dataSqlIcon;
 
   constructor(
-    private userService: UserService,
     private router: Router,
   ) {}
 

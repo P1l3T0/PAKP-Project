@@ -1,0 +1,58 @@
+<div class="forum-page">
+    <main class="forum-main">
+        <div class="forum-panel">
+
+            <div class="forum-title-block">
+                <h2>IDOR Security Demo - Post</h2>
+                <p class="forum-topic">Testing secure vs insecure post access.</p>
+            </div>
+
+            <div class="forum-card toggle-card">
+                <div class="toggle-mode">
+                    <kendo-label [for]="switcher" text="Vulnerable Mode"></kendo-label>
+
+                    <kendo-switch #switcher [checked]="vulnerableMode" onLabel="Vulnerable" offLabel="Safe"
+                        (valueChange)="switchMode()" style="width:110px;">
+                    </kendo-switch>
+
+                    <span class="mode-indicator" [ngStyle]="{'color': vulnerableMode ? 'red' : '#e6edf3'}">
+                        {{ vulnerableMode ? 'IDOR Vulnerable' : 'IDOR Safe' }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="forum-card instructions-card">
+                <h4>Instructions:</h4>
+                <ul>
+                    <li>Your user ID is <strong>{{ currentUserId }}</strong>, so you should be able to view only posts
+                        for <strong>User ID: {{ currentUserId }}</strong> in safe mode.</li>
+                    <li>Click the <strong>Vulnerable/Safe</strong> toggle to switch modes.</li>
+                    <li>In vulnerable mode, try accessing a post that belongs to other user to see the IDOR effect.</li>
+                    <li>To try it out, enter a post ID in the URL (e.g., <code>/post/1</code> for safe or
+                        <code>/v/post/1</code> for
+                        vulnerable).</li>
+                </ul>
+            </div>
+
+
+            <div class="forum-card post-detail">
+                <h3>Post Details (ID: {{ postId }})</h3>
+
+                @if(post) {
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <div class="post-avatar">{{ post.post?.title?.charAt(0) }}</div>
+                    <div>
+                        <h4>{{ post.post?.title }}</h4>
+                        <p class="post-meta">Post ID: {{ post.post?.id }} | User ID: {{ post.post?.userID }}</p>
+                    </div>
+                </div>
+                <p class="post-content">{{ post.post?.content }}</p>
+                } @else {
+                <p class="error-text">
+                    ❌ Access denied or post does not exist.
+                </p>
+                }
+            </div>
+        </div>
+    </main>
+</div>

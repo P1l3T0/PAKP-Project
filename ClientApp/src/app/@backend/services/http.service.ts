@@ -1,18 +1,21 @@
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { Observable} from "rxjs";
-import { Injectable } from "@angular/core";
-import { environment } from "../../../environments/environment.development";
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class HttpService {
   private readonly url: string = environment.apiURL;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   private post(endpoint: string, body: any) {
-    return this.httpClient.post(`${this.url}${endpoint}`, body, { responseType: 'text', withCredentials: true });
+    return this.httpClient.post(`${this.url}${endpoint}`, body, {
+      responseType: 'text',
+      withCredentials: true,
+    });
   }
 
   public getUser(): Observable<any> {
@@ -24,38 +27,57 @@ export class HttpService {
       ? `${this.url}/api/user/search-users-vulnerable`
       : `${this.url}/api/user/search-users-safe`;
 
-    let params = new HttpParams().set("search", search);
+    let params = new HttpParams().set('search', search);
 
     return this.httpClient.get(endpoint, {
       params: params,
-      withCredentials: true
+      withCredentials: true,
     });
   }
 
-  public registerUser(
-    email: string,
-    username: string,
-    password: string
-  ): Observable<any> {
-    return this.post("/api/Auth/register", {
+  public registerUser(email: string, username: string, password: string): Observable<any> {
+    return this.post('/api/Auth/register', {
       email: email,
       username: username,
-      password: password
+      password: password,
     });
   }
 
   public loginUser(email: string, password: string, vulnerable: boolean): Observable<any> {
-    const endpoint = vulnerable
-      ? "/api/Auth/login-vulnerable"
-      : "/api/Auth/login-safe";
+    const endpoint = vulnerable ? '/api/Auth/login-vulnerable' : '/api/Auth/login-safe';
 
     return this.post(endpoint, {
       email: email,
-      password: password
+      password: password,
     });
   }
 
   public logoutUser(): Observable<any> {
-    return this.post("/api/Auth/logout", {});
+    return this.post('/api/Auth/logout', {});
+  }
+
+  public fetchUserPosts(id: number, vulnerable: boolean): Observable<any> {
+    if (vulnerable) {
+      const endpoint = `${this.url}/api/Post/user-posts-vulnerable/${id}`;
+
+      return this.httpClient.get(endpoint, { withCredentials: true });
+    } else {
+      const endpoint = `${this.url}/api/Post/user-posts-safe`;
+      return this.httpClient.get(endpoint, { withCredentials: true });
+    }
+  }
+
+  public getPostById(id: number, vulnerable: boolean): Observable<any> {
+    const endpoint = vulnerable
+      ? `${this.url}/api/Post/get-post-vulnerable/${id}`
+      : `${this.url}/api/Post/get-post-safe/${id}`;
+
+    return this.httpClient.get(endpoint, { withCredentials: true });
+  }
+
+  public deletePostVuln(id: number): Observable<any> {
+    const endpoint = `${this.url}/api/Post/delete-post-vulnerable/${id}`;
+
+    return this.httpClient.delete(endpoint, { withCredentials: true });
   }
 }

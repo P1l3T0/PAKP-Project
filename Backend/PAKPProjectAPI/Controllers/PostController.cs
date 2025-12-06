@@ -31,7 +31,10 @@ namespace PAKPProjectAPI
                 // Safe: Authorization check
                 if (post.UserID != currentUser.ID && post.IsPrivate)
                 {
-                    return Forbid("You don't have permission to access this post");
+                    return StatusCode(StatusCodes.Status403Forbidden, new
+                    {
+                        Error = "You don't have permission to access this post"
+                    });
                 }
 
                 return Ok(new

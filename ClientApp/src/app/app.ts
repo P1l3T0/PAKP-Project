@@ -1,15 +1,25 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from './user-service/user';
-import { eyeIcon, facebookIcon, googleIcon, linkedinIcon, SVGIcon } from "@progress/kendo-svg-icons";
-import { KENDO_INPUTS } from '@progress/kendo-angular-inputs';
-import { RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { Header } from './header/header';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterModule],
+  imports: [RouterModule, Header],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
-export class App {}
+export class App {
+  public showHeader: boolean = false;
+  constructor(
+    private userService: UserService,
+    private router: Router,
+  ) {}
+
+  public ngOnInit(): void {
+    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
+      this.showHeader = this.userService.isLoggedInSubject.value;
+    });
+  }
+}

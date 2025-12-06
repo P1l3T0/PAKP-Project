@@ -1,0 +1,138 @@
+.forum-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.forum-main {
+  display: flex;
+  justify-content: center;
+  padding: 48px 20px;
+}
+
+.forum-panel {
+  width: 100%;
+  max-width: 850px;
+}
+
+.forum-title-block h2 {
+  margin: 0;
+  font-size: 2.4rem;
+  font-weight: 800;
+}
+
+.forum-topic {
+  color: #9ca3af;
+  margin-top: 6px;
+  font-size: 1.1rem;
+}
+
+.forum-card {
+  background: rgba(34, 39, 46, 0.9);
+  backdrop-filter: blur(14px);
+  padding: 26px 28px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  margin-bottom: 28px;
+}
+
+.toggle-card {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-mode {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.mode-indicator {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.post-content {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin-top: 10px;
+}
+
+.post-meta {
+  margin-top: 12px;
+  color: #9ca3af;
+}
+
+.error-text {
+  color: #f55;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.post-item, .forum-card.post-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 24px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(40, 46, 54, 0.92);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+}
+
+.post-item:hover, .forum-card.post-detail:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.28);
+}
+
+.post-item h4, .forum-card.post-detail h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #e6edf3;
+}
+
+.post-content {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #d1d5db;
+}
+
+.post-meta, .post-user {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin-top: 6px;
+}
+
+.post-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgb(234, 90, 81), #6f42c1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  margin-right: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 0 12px rgba(3, 102, 214, 0.35);
+}
+
+.instructions-card h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.instructions-card ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+
+.instructions-card li {
+  margin-bottom: 6px;
+}

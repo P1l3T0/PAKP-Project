@@ -1,7 +1,19 @@
 <header class="forum-header">
-    <div class="forum-header-content">
-        <h1>{{ pageTitle }}</h1>
-        <h3 class="welcome-text">Welcome back, <strong>{{ username }}</strong></h3>
-        <button kendoButton themeColor="primary" (click)="logout()">Log out</button>
+  <div class="forum-header-content">
+    <div class="header-left">
+      <h1>Security Demo App</h1>
+      <h3 class="welcome-text">Welcome back, <strong>{{ username }}</strong></h3>
     </div>
+
+    <nav class="header-nav">
+      <a routerLink="/forum" routerLinkActive="active">Forum</a>
+      <a routerLink="/admin-panel" routerLinkActive="active">Admin Panel</a>
+      <a [routerLink]="['/user', userId, 'posts']" routerLinkActive="active">My Posts</a>
+      <a routerLink="/post/1" routerLinkActive="active">Post Details</a>
+    </nav>
+
+    <div class="header-right">
+      <button kendoButton themeColor="primary" (click)="logout()">Log out</button>
+    </div>
+  </div>
 </header>

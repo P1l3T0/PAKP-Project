@@ -1,0 +1,62 @@
+<div class="forum-page">
+    <main class="forum-main">
+        <div class="forum-panel">
+
+            <div class="forum-title-block">
+                <h2>IDOR Security Demo - User Posts</h2>
+                <p class="forum-topic">
+                    Viewing posts for user ID: {{ userId }}
+                </p>
+            </div>
+
+            <div class="forum-card toggle-card">
+                <div class="toggle-mode">
+                    <kendo-label [for]="switcher" text="Vulnerable Mode"></kendo-label>
+
+                    <kendo-switch #switcher [checked]="vulnerableMode" onLabel="Vulnerable" offLabel="Safe"
+                        (valueChange)="switchMode()" style="width:110px;">
+                    </kendo-switch>
+
+                    <span class="mode-indicator" [ngStyle]="{'color': vulnerableMode ? 'red' : '#e6edf3'}">
+                        {{ vulnerableMode ? 'IDOR Vulnerable' : 'IDOR Safe' }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="forum-card instructions-card">
+                <h4>Instructions:</h4>
+                <ul>
+                    <li>Your user ID is <strong>{{ currentUserId }}</strong>, so you should be able to view only posts
+                        for <strong>User ID: {{ currentUserId }}</strong> in safe mode.</li>
+                    <li>Use the <strong>Vulnerable/Safe</strong> toggle to switch modes.</li>
+                    <li>Enter a user ID in the URL (e.g., <code>/user/1/posts</code> for safe,
+                        <code>/v/user/1/posts</code> for vulnerable).
+                    </li>
+                    <li>In vulnerable mode, you can access posts belonging to other users by changing the user ID in the
+                        URL.</li>
+                    <li>In safe mode, only the current user's posts will be returned even if you change the user ID in
+                        the URL.</li>
+                </ul>
+            </div>
+
+            <div class="forum-card">
+                <h2>Posts</h2>
+                @if(posts.length > 0) {
+                @for(p of posts; track $index) {
+                <div class="forum-card post-item">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <div class="post-avatar">{{ p.title?.charAt(0) }}</div>
+                        <div>
+                            <h4>{{ p.title }}</h4>
+                            <p class="post-meta">Post ID: {{ p.id }} | User ID: {{ p.userID }}</p>
+                        </div>
+                    </div>
+                    <p class="post-content">{{ p.content }}</p>
+                </div>
+                }
+                }
+            </div>
+
+        </div>
+    </main>
+</div>
