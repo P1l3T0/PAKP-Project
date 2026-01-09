@@ -23,9 +23,7 @@ export class HttpService {
   }
 
   public fetchUsers(search: string, vulnerable: boolean): Observable<any> {
-    const endpoint = vulnerable
-      ? `${this.url}/api/user/search-users-vulnerable`
-      : `${this.url}/api/user/search-users-safe`;
+      const endpoint = `${this.url}/api/user/search-users-vulnerable`;
 
     let params = new HttpParams().set('search', search);
 
@@ -44,7 +42,7 @@ export class HttpService {
   }
 
   public loginUser(email: string, password: string, vulnerable: boolean): Observable<any> {
-    const endpoint = vulnerable ? '/api/Auth/login-vulnerable' : '/api/Auth/login-safe';
+    const endpoint = '/api/Auth/login-vulnerable' 
 
     return this.post(endpoint, {
       email: email,
@@ -57,20 +55,13 @@ export class HttpService {
   }
 
   public fetchUserPosts(id: number, vulnerable: boolean): Observable<any> {
-    if (vulnerable) {
       const endpoint = `${this.url}/api/Post/user-posts-vulnerable/${id}`;
 
       return this.httpClient.get(endpoint, { withCredentials: true });
-    } else {
-      const endpoint = `${this.url}/api/Post/user-posts-safe`;
-      return this.httpClient.get(endpoint, { withCredentials: true });
-    }
   }
 
   public getPostById(id: number, vulnerable: boolean): Observable<any> {
-    const endpoint = vulnerable
-      ? `${this.url}/api/Post/get-post-vulnerable/${id}`
-      : `${this.url}/api/Post/get-post-safe/${id}`;
+    const endpoint = `${this.url}/api/Post/get-post-vulnerable/${id}`
 
     return this.httpClient.get(endpoint, { withCredentials: true });
   }

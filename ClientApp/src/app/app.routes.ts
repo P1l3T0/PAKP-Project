@@ -35,20 +35,6 @@ export const routes: Routes = [
     component: AdminPanel,
     canActivate: [AuthGuard],
   },
-  // SAFE
-  {
-    path: 'post/:id',
-    component: PostDetail,
-    data: { vulnerable: false },
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'user/:id/posts',
-    component: Posts,
-    data: { vulnerable: false },
-    canActivate: [AuthGuard],
-  },
-  // VULNERABLE
   {
     path: 'v/post/:id',
     component: PostDetail,

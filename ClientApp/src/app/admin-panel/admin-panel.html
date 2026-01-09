@@ -12,8 +12,9 @@
                 <kendo-switch #vulnSwitch name="vulnSwitch" [(ngModel)]="vulnerableMode" onLabel="Vulnerable"
                     offLabel="Safe" style="width: 105px;">
                 </kendo-switch>
-                <span class="mode-label" [ngStyle]="{'color': vulnerableMode ? 'red' : '#e6edf3' }">
-                    {{ vulnerableMode ? 'SQL Injection Vulnerable' : 'SQL Injection Safe' }}
+                <span class="mode-label">
+                    <ng-container *ngIf="vulnerableMode" style="color: red;">SQL Injection Vulnerable</ng-container>
+                    <ng-container *ngIf="!vulnerableMode" style="color: #e6edf3;">SQL Injection Safe</ng-container>
                 </span>
             </div>
         </div>
