@@ -12,48 +12,11 @@ namespace PAKPProjectAPI
         private readonly DataContext _dataContext = dataContext;
         private readonly IUserService _userService = userService;
 
-        [HttpGet("get-profile-safe/{profileId}")]
-        public async Task<ActionResult> GetProfileSafe(int profileId)
-        {
-            try
-            {
-                UserProfile? profile = await _dataContext.UserProfiles.FindAsync(profileId);
-
-                if (profile is null)
-                {
-                    return NotFound("Profile not found");
-                }
-
-                // Safe: Check if profile is public or belongs to current user
-                CurrentUserDTO currentUser = await _userService.GetCurrentUserAsync();
-
-                if (!profile.IsPublic && profile.UserID != currentUser.ID)
-                {
-                    return Forbid("You don't have permission to access this profile");
-                }
-
-                return Ok(new
-                {
-                    Profile = profile.ToDto<UserProfileDTO>(),
-                    Method = "Safe with Authorization"
-                });
-            }
-            catch (Exception)
-            {
-                return BadRequest(new
-                {
-                    Error = "Access denied",
-                    Method = "Safe with Authorization"
-                });
-            }
-        }
-
         [HttpGet("get-profile-vulnerable/{profileId}")]
         public async Task<ActionResult> GetProfileVulnerable(int profileId)
         {
             try
             {
-                // VULNERABLE: No authorization check - exposes private profiles
                 UserProfile? profile = await _dataContext.UserProfiles.FindAsync(profileId);
 
                 if (profile is null)
@@ -61,7 +24,6 @@ namespace PAKPProjectAPI
                     return NotFound("Profile not found");
                 }
 
-                // VULNERABLE: Returns any profile regardless of privacy settings
                 return Ok(new
                 {
                     profile = profile.ToDto<UserProfileDTO>(),
@@ -83,7 +45,6 @@ namespace PAKPProjectAPI
         {
             try
             {
-                // VULNERABLE: Can update any user's profile
                 UserProfile? profile = await _dataContext.UserProfiles.FindAsync(profileId);
 
                 if (profile is null)
@@ -91,7 +52,6 @@ namespace PAKPProjectAPI
                     return NotFound("Profile not found");
                 }
 
-                // VULNERABLE: No ownership check
                 profile.FirstName = updateDto.FirstName;
                 profile.LastName = updateDto.LastName;
                 profile.Bio = updateDto.Bio;
@@ -122,8 +82,6 @@ namespace PAKPProjectAPI
             try
             {
                 CurrentUserDTO currentUser = await _userService.GetCurrentUserAsync();
-
-                // Check if user already has a profile
                 UserProfile? existingProfile = await _dataContext.UserProfiles.FirstOrDefaultAsync(p => p.UserID == currentUser.ID);
 
                 if (existingProfile is not null)

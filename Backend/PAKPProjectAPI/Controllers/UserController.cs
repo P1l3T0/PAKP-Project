@@ -32,30 +32,6 @@ namespace PAKPProjectAPI
             return Ok("User deleted");
         }
 
-        [HttpGet("search-users-safe")]
-        public async Task<ActionResult> SearchUsersSafe([FromQuery] string search = "")
-        {
-            try
-            {
-                List<CurrentUserDTO> users = await _userService.SearchUsersAsync(search);
-
-                return Ok(new
-                {
-                    Users = users,
-                    Count = users.Count,
-                    Method = "Safe LINQ/EF"
-                });
-            }
-            catch (Exception)
-            {
-                return BadRequest(new
-                {
-                    Error = "Search failed",
-                    Method = "Safe LINQ/EF"
-                });
-            }
-        }
-
         [HttpGet("search-users-vulnerable")]
         public async Task<ActionResult> SearchUsersVulnerable([FromQuery] string search = "")
         {

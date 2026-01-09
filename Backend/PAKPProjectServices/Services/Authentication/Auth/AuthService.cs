@@ -63,13 +63,10 @@ namespace PAKPProjectServices
             return Task.CompletedTask;
         }
 
-        // VULNERABLE METHOD - Realistic SQL Injection Scenario
-        // This demonstrates a simple but vulnerable login implementation
         public async Task<CurrentUserDTO> LoginWithRawSqlAsync(LoginDTO loginDto)
         {
             try
             {
-                // VULNERABLE: Simple string concatenation
                 string query = $@"
                     SELECT Id, Email, Username, PasswordHash, PasswordSalt, DateCreated 
                     FROM Users 
@@ -100,12 +97,10 @@ namespace PAKPProjectServices
             }
         }
 
-        // VULNERABLE METHOD - Search users with SQL injection vulnerability
         public async Task<List<CurrentUserDTO>> SearchUsersWithRawSqlAsync(string searchTerm)
         {
             try
             {
-                // VULNERABLE: Direct string concatenation allows SQL injection
                 string query = $@"
                     SELECT Id, Email, Username, PasswordHash, PasswordSalt, DateCreated 
                     FROM Users 

@@ -19,20 +19,6 @@ namespace PAKPProjectAPI
             return Ok("Register successful");
         }
 
-        [HttpPost("login-safe")]
-        public async Task<ActionResult> LoginSafe([FromBody] LoginDTO loginDto)
-        {
-            try
-            {
-                await _authRepository.LoginAsync(loginDto);
-                return Ok(new { message = "Login successful", method = "Safe LINQ/EF" });
-            }
-            catch (Exception)
-            {
-                return BadRequest(new { error = "Login failed", method = "Safe LINQ/EF" });
-            }
-        }
-
         [HttpPost("login-vulnerable")]
         public async Task<ActionResult> LoginVulnerable([FromBody] LoginDTO loginDto)
         {
