@@ -111,14 +111,15 @@ namespace PAKPProjectServices
         {
             try
             {
-                string query = $@"
-                    SELECT Id, Email, Username, PasswordHash, PasswordSalt, DateCreated 
-                    FROM Users 
-                    WHERE Username LIKE '%{searchTerm}%' 
-                    OR Email LIKE '%{searchTerm}%'".Trim();
+                string query = @"
+                    SELECT Id, Email, Username, DateCreated
+                    FROM Users
+                    WHERE Username LIKE @search OR Email LIKE @search";
 
-                List<CurrentUserDTO> users = await _dataContext.Users
-                    .FromSqlRaw(query)
+                var param = new SqlParameter("@search", $"%{searchTerm}%");
+
+                var users = await _dataContext.Users
+                    .FromSqlRaw(query, param)
                     .Select(u => new CurrentUserDTO
                     {
                         ID = u.ID,
