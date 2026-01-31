@@ -46,7 +46,7 @@ export class PostDetail {
   }
 
   public switchMode(): void {
-    const target = this.vulnerableMode ? `/post/${this.postId}` : `/v/post/${this.postId}`;
+    const target = `/post/${this.postId}`;
     this.router.navigate([target]);
   }
 }

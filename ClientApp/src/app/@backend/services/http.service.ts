@@ -23,7 +23,7 @@ export class HttpService {
   }
 
   public fetchUsers(search: string, vulnerable: boolean): Observable<any> {
-      const endpoint = `${this.url}/api/user/search-users-vulnerable`;
+      const endpoint = `${this.url}/api/user/search-users`;
 
     let params = new HttpParams().set('search', search);
 
@@ -42,7 +42,7 @@ export class HttpService {
   }
 
   public loginUser(email: string, password: string, vulnerable: boolean): Observable<any> {
-    const endpoint = '/api/Auth/login-vulnerable' 
+    const endpoint = '/api/Auth/login' 
 
     return this.post(endpoint, {
       email: email,
@@ -55,19 +55,19 @@ export class HttpService {
   }
 
   public fetchUserPosts(id: number, vulnerable: boolean): Observable<any> {
-      const endpoint = `${this.url}/api/Post/user-posts-vulnerable/${id}`;
+      const endpoint = `${this.url}/api/Post/user-posts/${id}`;
 
       return this.httpClient.get(endpoint, { withCredentials: true });
   }
 
   public getPostById(id: number, vulnerable: boolean): Observable<any> {
-    const endpoint = `${this.url}/api/Post/get-post-vulnerable/${id}`
+    const endpoint = `${this.url}/api/Post/get-post/${id}`
 
     return this.httpClient.get(endpoint, { withCredentials: true });
   }
 
   public deletePostVuln(id: number): Observable<any> {
-    const endpoint = `${this.url}/api/Post/delete-post-vulnerable/${id}`;
+    const endpoint = `${this.url}/api/Post/delete-post/${id}`;
 
     return this.httpClient.delete(endpoint, { withCredentials: true });
   }

@@ -58,9 +58,7 @@ export class Posts {
   }
 
   public switchMode(): void {
-    const target = this.vulnerableMode
-      ? `/user/${this.userId}/posts`
-      : `/v/user/${this.userId}/posts`;
+    const target = `/user/${this.userId}/posts`;
 
     this.router.navigate([target]);
   }

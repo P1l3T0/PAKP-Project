@@ -36,13 +36,13 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'v/post/:id',
+    path: 'post/:id',
     component: PostDetail,
     data: { vulnerable: true },
     canActivate: [AuthGuard],
   },
   {
-    path: 'v/user/:id/posts',
+    path: 'user/:id/posts',
     component: Posts,
     data: { vulnerable: true },
     canActivate: [AuthGuard],

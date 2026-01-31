@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using PAKPProjectData;
 using System.Data;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace PAKPProjectServices
 {
@@ -70,7 +72,7 @@ namespace PAKPProjectServices
                 string query = $@"
                     SELECT Id, Email, Username, PasswordHash, PasswordSalt, DateCreated 
                     FROM Users 
-                    WHERE Email = '{loginDto.Email}' AND Username IS NOT NULL AND Password = {loginDto.Password}".Trim();
+                    WHERE Email = '{loginDto.Email}' AND Username IS NOT NULL".Trim();
 
                 List<User> users = await _dataContext.Users
                     .FromSqlRaw(query)
@@ -82,6 +84,14 @@ namespace PAKPProjectServices
                 }
 
                 User user = users.First();
+
+                using HMACSHA512 hmac = new HMACSHA512(user.PasswordSalt);
+                byte[] hashedPassword = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
+
+                if (!hashedPassword.SequenceEqual(user.PasswordHash))
+                {
+                    throw new Exception("Invalid email or password");
+                }
 
                 return new CurrentUserDTO
                 {
