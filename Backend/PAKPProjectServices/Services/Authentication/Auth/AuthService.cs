@@ -70,7 +70,7 @@ namespace PAKPProjectServices
                 string query = $@"
                     SELECT Id, Email, Username, PasswordHash, PasswordSalt, DateCreated 
                     FROM Users 
-                    WHERE Email = '{loginDto.Email}' AND Username IS NOT NULL".Trim();
+                    WHERE Email = '{loginDto.Email}' AND Username IS NOT NULL AND Password = {loginDto.Password}".Trim();
 
                 List<User> users = await _dataContext.Users
                     .FromSqlRaw(query)

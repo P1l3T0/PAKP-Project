@@ -12,8 +12,8 @@ namespace PAKPProjectAPI
         private readonly DataContext _dataContext = dataContext;
         private readonly IUserService _userService = userService;
 
-        [HttpGet("get-post-vulnerable/{postId}")]
-        public async Task<ActionResult> GetPostVulnerable(int postId)
+        [HttpGet("get-post/{postId}")]
+        public async Task<ActionResult> GetPost(int postId)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace PAKPProjectAPI
                 return Ok(new
                 {
                     Post = post.ToDto<UserPostDTO>(),
-                    Method = "Vulnerable IDOR"
+                    Method = ""
                 });
             }
             catch (Exception ex)
@@ -35,13 +35,13 @@ namespace PAKPProjectAPI
                 return BadRequest(new
                 {
                     Error = ex.Message,
-                    Method = "Vulnerable IDOR"
+                    Method = ""
                 });
             }
         }
 
-        [HttpGet("user-posts-vulnerable/{userId}")]
-        public async Task<ActionResult> GetUserPostsVulnerable(int userId)
+        [HttpGet("user-posts/{userId}")]
+        public async Task<ActionResult> GetUserPosts(int userId)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace PAKPProjectAPI
                 {
                     Posts = posts,
                     UserId = userId,
-                    Method = "Vulnerable IDOR"
+                    Method = ""
                 });
             }
             catch (Exception ex)
@@ -62,7 +62,7 @@ namespace PAKPProjectAPI
                 return BadRequest(new 
                 { 
                     Error = ex.Message, 
-                    Method = "Vulnerable, IDOR"
+                    Method = ""
                 });
             }
         }
@@ -100,8 +100,8 @@ namespace PAKPProjectAPI
             }
         }
 
-        [HttpDelete("delete-post-vulnerable/{postId}")]
-        public async Task<ActionResult> DeletePostVulnerable(int postId)
+        [HttpDelete("delete-post/{postId}")]
+        public async Task<ActionResult> DeletePost(int postId)
         {
             try
             {
@@ -118,7 +118,7 @@ namespace PAKPProjectAPI
                 return Ok(new 
                 { 
                     Message = "Post deleted", 
-                    Method = "Vulnerable IDOR"
+                    Method = ""
                 });
             }
             catch (Exception ex)

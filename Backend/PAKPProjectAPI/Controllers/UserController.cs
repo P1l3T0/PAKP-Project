@@ -32,8 +32,8 @@ namespace PAKPProjectAPI
             return Ok("User deleted");
         }
 
-        [HttpGet("search-users-vulnerable")]
-        public async Task<ActionResult> SearchUsersVulnerable([FromQuery] string search = "")
+        [HttpGet("search-users")]
+        public async Task<ActionResult> SearchUsers([FromQuery] string search = "")
         {
             try
             {

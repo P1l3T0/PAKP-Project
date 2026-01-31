@@ -12,8 +12,8 @@ namespace PAKPProjectAPI
         private readonly DataContext _dataContext = dataContext;
         private readonly IUserService _userService = userService;
 
-        [HttpGet("get-profile-vulnerable/{profileId}")]
-        public async Task<ActionResult> GetProfileVulnerable(int profileId)
+        [HttpGet("get-profile/{profileId}")]
+        public async Task<ActionResult> GetProfile(int profileId)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace PAKPProjectAPI
                 return Ok(new
                 {
                     profile = profile.ToDto<UserProfileDTO>(),
-                    method = "Vulnerable IDOR"
+                    method = ""
                 });
             }
             catch (Exception ex)
@@ -35,13 +35,13 @@ namespace PAKPProjectAPI
                 return BadRequest(new
                 {
                     error = ex.Message,
-                    method = "Vulnerable IDOR"
+                    method = ""
                 });
             }
         }
 
-        [HttpPut("update-profile-vulnerable/{profileId}")]
-        public async Task<ActionResult> UpdateProfileVulnerable(int profileId, [FromBody] UserProfileUpdateDTO updateDto)
+        [HttpPut("update-profile/{profileId}")]
+        public async Task<ActionResult> UpdateProfile(int profileId, [FromBody] UserProfileUpdateDTO updateDto)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace PAKPProjectAPI
                 return Ok(new
                 {
                     message = "Profile updated",
-                    method = "Vulnerable IDOR"
+                    method = ""
                 });
             }
             catch (Exception ex)

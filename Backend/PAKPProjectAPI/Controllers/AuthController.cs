@@ -19,8 +19,8 @@ namespace PAKPProjectAPI
             return Ok("Register successful");
         }
 
-        [HttpPost("login-vulnerable")]
-        public async Task<ActionResult> LoginVulnerable([FromBody] LoginDTO loginDto)
+        [HttpPost("login")]
+        public async Task<ActionResult> Login([FromBody] LoginDTO loginDto)
         {
             try
             {
