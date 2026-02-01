@@ -18,14 +18,22 @@ namespace PAKPProjectAPI
             try
             {
                 CurrentUserDTO currentUser = await _userService.GetCurrentUserAsync();
-
                 UserPost? post = await _dataContext.UserPosts
-                    .Where(p => p.ID == postId && p.UserID == currentUser.ID)
+                    .Where(p => p.ID == postId)
                     .FirstOrDefaultAsync();
 
                 if (post is null)
                 {
-                    return NotFound("Post not found or access denied");
+                    return NotFound("Post not found");
+                }
+
+                // Safe: Authorization check
+                if (post.UserID != currentUser.ID && post.IsPrivate)
+                {
+                    return StatusCode(StatusCodes.Status403Forbidden, new
+                    {
+                        Error = "You don't have permission to access this post",
+                    });
                 }
 
                 return Ok(new
