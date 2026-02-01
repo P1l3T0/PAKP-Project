@@ -51,11 +51,7 @@
                         </p>
 
                         <div class="comment-text">
-                            @if(vulnerableMode) {
                             <span [innerHTML]="c | safeHtml"></span>
-                            } @else {
-                            <span>{{ c }}</span>
-                            }
                         </div>
                     </div>
                 </div>
