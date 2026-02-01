@@ -109,11 +109,15 @@ namespace PAKPProjectAPI
         {
             try
             {
-                UserPost? post = await _dataContext.UserPosts.FindAsync(postId);
+                CurrentUserDTO currentUser = await _userService.GetCurrentUserAsync();
+
+                UserPost? post = await _dataContext.UserPosts
+                    .Where(p => p.ID == postId && p.UserID == currentUser.ID)
+                    .FirstOrDefaultAsync();
 
                 if (post is null)
                 {
-                    return NotFound("Post not found");
+                    return NotFound("Post not found or access denied");
                 }
 
                 _dataContext.UserPosts.Remove(post);
