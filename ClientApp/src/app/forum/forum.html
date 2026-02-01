@@ -1,62 +1,75 @@
 <div class="forum-page">
-    <main class="forum-main">
-        <div class="forum-panel">
+  <main class="forum-main">
+    <div class="forum-panel">
+      <div class="forum-title-block">
+        <h2>XSS Security Demo</h2>
+        <p class="forum-topic">Explore the effects of insecure vs. secure text rendering.</p>
+      </div>
 
-            <div class="forum-title-block">
-                <h2>XSS Security Demo</h2>
-                <p class="forum-topic">Explore the effects of insecure vs. secure text rendering.</p>
-            </div>
-
-            <div class="forum-card toggle-card">
-                <div class="toggle-mode">
-                    <kendo-label [for]="vulnSwitch" text="Vulnerable Mode"></kendo-label>
-                    <kendo-switch #vulnSwitch [(ngModel)]="vulnerableMode" name="vulnSwitch" onLabel="Vulnerable" offLabel="Safe" (valueChange)="onChange()"
-                        style="width:110px;">
-                    </kendo-switch>
-                    <span class="mode-indicator" [ngStyle]="{'color': vulnerableMode ? 'red' : '#e6edf3' }">{{
-                        vulnerableMode ? 'XSS Vulnerable' : 'XSS Safe' }}</span>
-                </div>
-            </div>
-
-            <form [formGroup]="commentForm" (ngSubmit)="addComment()" class="forum-card comment-form">
-                <kendo-formfield showHints="always">
-                    <kendo-label [labelCssStyle]="{ fontSize: '16px' }" labelCssClass="k-form-label" [for]="comment" text="Add a comment"></kendo-label>
-                    <kendo-textarea size="large" formControlName="comment" #comment
-                        placeholder="Type your comment here..."></kendo-textarea>
-                </kendo-formfield>
-                <div class="second-row">
-                    <div class="hint-block">
-                        <p>Example inputs:</p>
-                        <ul>
-                            <li>&lt;a href="javascript:alert(1)"&gt;Click me&lt;/a&gt;</li>
-                            <li>&lt;img src=x onerror=alert('XSS')&gt;</li>
-                            <li>&lt;p style='color:cyan'&gt;Styled text&lt;/p&gt;</li>
-                        </ul>
-                    </div>
-                    <button type="submit" kendoButton themeColor="primary">Post Comment</button>
-                </div>
-            </form>
-
-            <div class="forum-card comments-section">
-                <h3>Comments</h3>
-
-                @for(c of comments; track $index) {
-                <div class="comment">
-                    <div class="comment-avatar">
-                    </div>
-
-                    <div class="comment-content">
-                        <p class="comment-meta">
-                            Posted just now
-                        </p>
-
-                        <div class="comment-text">
-                            <span [innerHTML]="c | safeHtml"></span>
-                        </div>
-                    </div>
-                </div>
-                }
-            </div>
+      <div class="forum-card toggle-card">
+        <div class="toggle-mode">
+          <kendo-label [for]="vulnSwitch" text="Vulnerable Mode"></kendo-label>
+          <kendo-switch
+            #vulnSwitch
+            [(ngModel)]="vulnerableMode"
+            name="vulnSwitch"
+            onLabel="Vulnerable"
+            offLabel="Safe"
+            (valueChange)="onChange()"
+            style="width: 110px"
+          >
+          </kendo-switch>
+          <span class="mode-indicator" [ngStyle]="{ color: vulnerableMode ? 'red' : '#e6edf3' }">{{
+            vulnerableMode ? 'XSS Vulnerable' : 'XSS Safe'
+          }}</span>
         </div>
-    </main>
+      </div>
+
+      <form [formGroup]="commentForm" (ngSubmit)="addComment()" class="forum-card comment-form">
+        <kendo-formfield showHints="always">
+          <kendo-label
+            [labelCssStyle]="{ fontSize: '16px' }"
+            labelCssClass="k-form-label"
+            [for]="comment"
+            text="Add a comment"
+          ></kendo-label>
+          <kendo-textarea
+            size="large"
+            formControlName="comment"
+            #comment
+            placeholder="Type your comment here..."
+          ></kendo-textarea>
+        </kendo-formfield>
+        <div class="second-row">
+          <div class="hint-block">
+            <p>Example inputs:</p>
+            <ul>
+              <li>&lt;a href="javascript:alert(1)"&gt;Click me&lt;/a&gt;</li>
+              <li>&lt;img src=x onerror=alert('XSS')&gt;</li>
+              <li>&lt;p style='color:cyan'&gt;Styled text&lt;/p&gt;</li>
+            </ul>
+          </div>
+          <button type="submit" kendoButton themeColor="primary">Post Comment</button>
+        </div>
+      </form>
+
+      <div class="forum-card comments-section">
+        <h3>Comments</h3>
+
+        @for (c of comments; track $index) {
+          <div class="comment">
+            <div class="comment-avatar"></div>
+
+            <div class="comment-content">
+              <p class="comment-meta">Posted just now</p>
+
+              <div class="comment-text">
+                <span>{{ c }}</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </main>
 </div>
