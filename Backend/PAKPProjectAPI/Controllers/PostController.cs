@@ -45,23 +45,24 @@ namespace PAKPProjectAPI
         {
             try
             {
+                CurrentUserDTO currentUser = await _userService.GetCurrentUserAsync();
                 List<UserPostDTO> posts = await _dataContext.UserPosts
-                    .Where(p => p.UserID == userId)
+                    .Where(p => p.UserID == currentUser.ID)
                     .Select(p => p.ToDto<UserPostDTO>())
                     .ToListAsync();
 
                 return Ok(new
                 {
                     Posts = posts,
-                    UserId = userId,
+                    UserId = currentUser.ID,
                     Method = ""
                 });
             }
             catch (Exception ex)
             {
-                return BadRequest(new 
-                { 
-                    Error = ex.Message, 
+                return BadRequest(new
+                {
+                    Error = ex.Message,
                     Method = ""
                 });
             }
@@ -85,16 +86,16 @@ namespace PAKPProjectAPI
                 _dataContext.UserPosts.Add(post);
                 await _dataContext.SaveChangesAsync();
 
-                return Ok(new 
-                { 
-                    Message = "Post created", 
+                return Ok(new
+                {
+                    Message = "Post created",
                     PostId = post.ID
                 });
             }
             catch (Exception ex)
             {
-                return BadRequest(new 
-                { 
+                return BadRequest(new
+                {
                     Error = ex.Message
                 });
             }
@@ -115,16 +116,16 @@ namespace PAKPProjectAPI
                 _dataContext.UserPosts.Remove(post);
                 await _dataContext.SaveChangesAsync();
 
-                return Ok(new 
-                { 
-                    Message = "Post deleted", 
+                return Ok(new
+                {
+                    Message = "Post deleted",
                     Method = ""
                 });
             }
             catch (Exception ex)
             {
-                return BadRequest(new 
-                { 
+                return BadRequest(new
+                {
                     Error = ex.Message
                 });
             }
