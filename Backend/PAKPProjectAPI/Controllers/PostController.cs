@@ -17,11 +17,23 @@ namespace PAKPProjectAPI
         {
             try
             {
-                UserPost? post = await _dataContext.UserPosts.FindAsync(postId);
+                CurrentUserDTO currentUser = await _userService.GetCurrentUserAsync();
+                UserPost? post = await _dataContext.UserPosts
+                    .Where(p => p.ID == postId)
+                    .FirstOrDefaultAsync();
 
                 if (post is null)
                 {
                     return NotFound("Post not found");
+                }
+
+                // Safe: Authorization check
+                if (post.UserID != currentUser.ID && post.IsPrivate)
+                {
+                    return StatusCode(StatusCodes.Status403Forbidden, new
+                    {
+                        Error = "You don't have permission to access this post",
+                    });
                 }
 
                 return Ok(new
@@ -59,9 +71,9 @@ namespace PAKPProjectAPI
             }
             catch (Exception ex)
             {
-                return BadRequest(new 
-                { 
-                    Error = ex.Message, 
+                return BadRequest(new
+                {
+                    Error = ex.Message,
                     Method = ""
                 });
             }
@@ -85,16 +97,16 @@ namespace PAKPProjectAPI
                 _dataContext.UserPosts.Add(post);
                 await _dataContext.SaveChangesAsync();
 
-                return Ok(new 
-                { 
-                    Message = "Post created", 
+                return Ok(new
+                {
+                    Message = "Post created",
                     PostId = post.ID
                 });
             }
             catch (Exception ex)
             {
-                return BadRequest(new 
-                { 
+                return BadRequest(new
+                {
                     Error = ex.Message
                 });
             }
@@ -105,26 +117,30 @@ namespace PAKPProjectAPI
         {
             try
             {
-                UserPost? post = await _dataContext.UserPosts.FindAsync(postId);
+                CurrentUserDTO currentUser = await _userService.GetCurrentUserAsync();
+
+                UserPost? post = await _dataContext.UserPosts
+                    .Where(p => p.ID == postId && p.UserID == currentUser.ID)
+                    .FirstOrDefaultAsync();
 
                 if (post is null)
                 {
-                    return NotFound("Post not found");
+                    return NotFound("Post not found or access denied");
                 }
 
                 _dataContext.UserPosts.Remove(post);
                 await _dataContext.SaveChangesAsync();
 
-                return Ok(new 
-                { 
-                    Message = "Post deleted", 
+                return Ok(new
+                {
+                    Message = "Post deleted",
                     Method = ""
                 });
             }
             catch (Exception ex)
             {
-                return BadRequest(new 
-                { 
+                return BadRequest(new
+                {
                     Error = ex.Message
                 });
             }
