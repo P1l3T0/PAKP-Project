@@ -17,11 +17,21 @@ namespace PAKPProjectAPI
         {
             try
             {
+                CurrentUserDTO currentUser = await _userService.GetCurrentUserAsync();
                 UserPost? post = await _dataContext.UserPosts.FindAsync(postId);
 
                 if (post is null)
                 {
                     return NotFound("Post not found");
+                }
+
+                if (post.IsPrivate && post.UserID != currentUser.ID)
+                {
+                    return StatusCode(StatusCodes.Status403Forbidden, new
+                    {
+                        Error = "You don't have permission to access this post",
+                        Method = ""
+                    });
                 }
 
                 return Ok(new
@@ -45,8 +55,17 @@ namespace PAKPProjectAPI
         {
             try
             {
-                List<UserPostDTO> posts = await _dataContext.UserPosts
-                    .Where(p => p.UserID == userId)
+                CurrentUserDTO currentUser = await _userService.GetCurrentUserAsync();
+
+                var postsQuery = _dataContext.UserPosts.Where(p => p.UserID == userId);
+
+                // If requesting someone else's posts, only show public ones
+                if (userId != currentUser.ID)
+                {
+                    postsQuery = postsQuery.Where(p => !p.IsPrivate);
+                }
+
+                List<UserPostDTO> posts = await postsQuery
                     .Select(p => p.ToDto<UserPostDTO>())
                     .ToListAsync();
 
@@ -105,11 +124,21 @@ namespace PAKPProjectAPI
         {
             try
             {
+                CurrentUserDTO currentUser = await _userService.GetCurrentUserAsync();
                 UserPost? post = await _dataContext.UserPosts.FindAsync(postId);
 
                 if (post is null)
                 {
                     return NotFound("Post not found");
+                }
+
+                if (post.UserID != currentUser.ID)
+                {
+                    return StatusCode(StatusCodes.Status403Forbidden, new
+                    {
+                        Error = "You don't have permission to delete this post",
+                        Method = ""
+                    });
                 }
 
                 _dataContext.UserPosts.Remove(post);
