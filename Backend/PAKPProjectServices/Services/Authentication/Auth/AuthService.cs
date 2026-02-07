@@ -69,13 +69,15 @@ namespace PAKPProjectServices
         {
             try
             {
-                string query = $@"
+                string query = @"
                     SELECT Id, Email, Username, PasswordHash, PasswordSalt, DateCreated 
                     FROM Users 
-                    WHERE Email = '{loginDto.Email}' AND Username IS NOT NULL".Trim();
+                    WHERE Email = @email AND Username IS NOT NULL".Trim();
+
+                var emailParam = new SqlParameter("@email", loginDto.Email);
 
                 List<User> users = await _dataContext.Users
-                    .FromSqlRaw(query)
+                    .FromSqlRaw(query, emailParam)
                     .ToListAsync();
 
                 if (!users.Any())
@@ -111,14 +113,16 @@ namespace PAKPProjectServices
         {
             try
             {
-                string query = $@"
+                string query = @"
                     SELECT Id, Email, Username, PasswordHash, PasswordSalt, DateCreated 
                     FROM Users 
-                    WHERE Username LIKE '%{searchTerm}%' 
-                    OR Email LIKE '%{searchTerm}%'".Trim();
+                    WHERE Username LIKE @search
+                    OR Email LIKE @search".Trim();
+
+                var searchParam = new SqlParameter("@search", $"%{searchTerm}%");
 
                 List<CurrentUserDTO> users = await _dataContext.Users
-                    .FromSqlRaw(query)
+                    .FromSqlRaw(query, searchParam)
                     .Select(u => new CurrentUserDTO
                     {
                         ID = u.ID,
